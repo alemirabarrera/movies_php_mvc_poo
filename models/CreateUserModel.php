@@ -65,7 +65,7 @@ class CreateUserModel {
     public function validateFields(){
         $arr_erros = array();        
         if(!preg_match("/.+/", $this->username) || preg_match("/[0-9]/", $this->username)){            
-            $arr_erros[] = "The phone is obligatory, cannot contain any number, only letters";
+            $arr_erros[] = "The username is obligatory, cannot contain any number, only letters";
         }
         $regex = '/^\+{1}\d[^\W]{7}/';
         $this->phone = preg_replace("/\s/", "", $this->phone);

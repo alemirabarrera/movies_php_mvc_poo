@@ -30,8 +30,8 @@ class Dashboard extends Controller
         $datafile = curl_GET($url);
         $data_response = json_decode($datafile, true);
         $arr_data = [];
-
-        if ($data_response["Response"]=="True"){
+                
+        if (!empty($data_response) && $data_response["Response"]=="True"){
 
             $arr_data = $data_response["Search"];
             if (isset($_GET["submit"])) {
