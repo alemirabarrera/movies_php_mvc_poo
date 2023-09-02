@@ -2,7 +2,7 @@
 require_once "helpers/curlrequest.php"; //require get and post http function
 
 class Dashboard extends Controller
-{
+{        
     function __construct()
     {
         parent::__construct();
@@ -30,8 +30,8 @@ class Dashboard extends Controller
         $datafile = curl_GET($url);
         $data_response = json_decode($datafile, true);
         $arr_data = [];
-
-        if ($data_response["Response"]=="True"){
+                
+        if (!empty($data_response) && $data_response["Response"]=="True"){
 
             $arr_data = $data_response["Search"];
             if (isset($_GET["submit"])) {
@@ -53,5 +53,12 @@ class Dashboard extends Controller
         }
         $this->view->data[0] = $filters;
         $this->view->data[1] = $arr_data;
+    } 
+
+    public function closeSession(){//with a buttom singOut or close session
+        session_destroy();  
+        //go to the login page                                            
+        header("Location: ".URL."login");                        
+        exit();
     }
 }

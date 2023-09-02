@@ -12,14 +12,14 @@
 <body>    
     <div class="container"><br>
     <h2 class="text-center">Create Account</h2><br>    
-    <div class="form container-md">
-        <form action="<?php echo URL?>/createUser/validarUsuario" method="POST">
+    <div class="form container-md">    
+        <form action="<?php echo URL?>createUser/validarUsuario" method="POST">
             <label for="username"  class="form-label">Username</label><br>
-            <input type="text" name="username" id="username" class="form-control"/><br>
+            <input type="text" name="username" id="username" class="form-control" value='<?php if(isset($this->data["username"])) { echo($this->data["username"]); }?>'/><br>
             <label for="phone"  class="form-label">Phone</label><br>
-            <input type="text" name="phone" id="phone" class="form-control"/><br>
+            <input type="text" name="phone" id="phone" class="form-control" value="<?php if(isset($this->data["phone"])) { echo($this->data["phone"]); }?>"/><br>
             <label for="email"  class="form-label">Email</label><br>
-            <input type="text" name="email" id="email" class="form-control"/><br>
+            <input type="text" name="email" id="email" class="form-control" value="<?php if(isset($this->data["email"])) { echo($this->data["email"]); }?>"/><br>
             <label for="password"  class="form-label">Password</label><br>
             <input type="password" name="password" id="password" class="form-control"/><br>
             <input type="submit" name="submit" id="submit" class="btn btn-primary"/>
