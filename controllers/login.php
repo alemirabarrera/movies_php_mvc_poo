@@ -3,11 +3,10 @@ require_once("models/FileMangerModel.php"); //require the model FileManger
 class Login extends Controller{
     function __construct()
     { 
-        parent::__construct();
-        
-        $this->view->render("login/index");        
-        session_start();                        
-        !isset($_SESSION["acount_created"]) ? $_SESSION["acount_created"] = 0 : $_SESSION["acount_created"]++;
+        parent::__construct();        
+        $this->view->render("login/index");                
+        $_SESSION["login"] = false;
+        !isset($_SESSION["acount_created"]) ? $_SESSION["acount_created"] = 0 : $_SESSION["acount_created"]++;        
         if($_SESSION["acount_created"] == 0){
             //User Created Successfull - print just one time.
             alert("User Created Successfull", "success m-aler");  
@@ -35,8 +34,8 @@ class Login extends Controller{
                         !$username_validator ?  alert("Error acess: The username field is not correct, try again", "danger m-aler") : null;
                         !$password_validator ?  alert("Error acess: The Password field does not match", "danger m-aler") : null;                                                
                         cleanAlerts(6000);
-                        if($username_validator && $password_validator){                            
-                            session_destroy();
+                        if($username_validator && $password_validator){                                                        
+                            $_SESSION["login"] = true;                            
                             header("Location: ".URL."dashboard");
                             exit();
                         }

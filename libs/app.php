@@ -3,7 +3,8 @@ require_once("controllers/error.php");
 
 class App {
     function __construct()
-    {             
+    {   
+        session_start();        
         $url = isset($_GET["url"]) ? $_GET["url"] : null;
         $url = rtrim($url, "/");
         $url = explode("/", $url);
@@ -15,15 +16,20 @@ class App {
         }
 
         $archivoController = "controllers/". $url[0]. ".php";
-        if(file_exists($archivoController)){
-            require_once($archivoController); //require the file
-            $controler = new $url[0];
-            //$controler->loardModel();
-            if(isset($url[1])){
-                $controler->{$url[1]}();  //call the method
-            }
+        if(!file_exists($archivoController)){
+            $controller = new ErrorPage();           
         }else{
-            $controller = new ErrorPage();
+            if($url[0] == "dashboard" && !($_SESSION["login"])) {
+                echo '<h1>You must first login to access the Dashboard module</h1>';                
+                //here we can require a specfic controller for this msg
+            }else{
+                require_once($archivoController); //require the file
+                $controler = new $url[0];
+                //$controler->loardModel();
+                if(isset($url[1])){
+                    $controler->{$url[1]}();  //call the method
+                }
+            }                        
         }
         
     }

@@ -2,7 +2,7 @@
 require_once "helpers/curlrequest.php"; //require get and post http function
 
 class Dashboard extends Controller
-{
+{        
     function __construct()
     {
         parent::__construct();
@@ -53,5 +53,12 @@ class Dashboard extends Controller
         }
         $this->view->data[0] = $filters;
         $this->view->data[1] = $arr_data;
+    } 
+
+    public function closeSession(){//with a buttom singOut or close session
+        session_destroy();  
+        //go to the login page                                            
+        header("Location: ".URL."login");                        
+        exit();
     }
 }
